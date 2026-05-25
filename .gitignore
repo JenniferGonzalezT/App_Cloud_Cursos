@@ -1,0 +1,31 @@
+# ==========================================
+# Archivos de Compilación (Maven / Java)
+# ==========================================
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ==========================================
+# Archivos de Configuración del IDE (Entorno)
+# ==========================================
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Archivos del Wallet de Oracle Cloud
+# (¡CRÍTICO! Nunca subir credenciales reales)
+# ==========================================
+wallet/
+*.sso
+*.p12
+*.ora
+*.properties
