@@ -1,4 +1,4 @@
-package com.formativa.cloud.controller;
+package com.duoc.cloud.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

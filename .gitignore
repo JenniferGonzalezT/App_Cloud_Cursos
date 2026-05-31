@@ -29,3 +29,9 @@ wallet/
 *.p12
 *.ora
 *.properties
+
+# ==========================================
+# Archivo de variables de entorno
+# (¡CRÍTICO! Nunca subir)
+# ==========================================
+.env

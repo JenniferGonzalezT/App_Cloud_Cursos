@@ -14,7 +14,7 @@ WORKDIR /app
 # Carpeta donde se montara el Wallet de Oracle Cloud
 VOLUME /app/wallet
 
-COPY --from=build /app/target/formativa-cloud-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/app-cloud-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 

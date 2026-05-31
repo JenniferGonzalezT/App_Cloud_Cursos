@@ -1,7 +1,8 @@
-package com.formativa.cloud.repository;
+package com.duoc.cloud.repository;
 
-import com.formativa.cloud.model.Inscripcion;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.duoc.cloud.model.Inscripcion;
 
 public interface InscripcionRepository extends JpaRepository<Inscripcion, Long> {
 }

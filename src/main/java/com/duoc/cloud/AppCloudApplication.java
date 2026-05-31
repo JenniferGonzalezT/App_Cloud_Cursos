@@ -1,13 +1,13 @@
-package com.formativa.cloud;
+package com.duoc.cloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FormativaCloudApplication {
+public class AppCloudApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FormativaCloudApplication.class, args);
+        SpringApplication.run(AppCloudApplication.class, args);
     }
 
 }

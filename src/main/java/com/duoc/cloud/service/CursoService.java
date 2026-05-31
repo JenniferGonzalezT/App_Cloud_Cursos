@@ -1,8 +1,9 @@
-package com.formativa.cloud.service;
+package com.duoc.cloud.service;
 
-import com.formativa.cloud.model.Curso;
-import com.formativa.cloud.repository.CursoRepository;
 import org.springframework.stereotype.Service;
+
+import com.duoc.cloud.model.Curso;
+import com.duoc.cloud.repository.CursoRepository;
 
 import java.util.List;
 

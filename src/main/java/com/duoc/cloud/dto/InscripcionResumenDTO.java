@@ -1,4 +1,4 @@
-package com.formativa.cloud.dto;
+package com.duoc.cloud.dto;
 
 import lombok.Data;
 

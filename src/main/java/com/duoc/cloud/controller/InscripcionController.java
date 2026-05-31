@@ -1,12 +1,13 @@
-package com.formativa.cloud.controller;
+package com.duoc.cloud.controller;
 
-import com.formativa.cloud.dto.InscripcionRequestDTO;
-import com.formativa.cloud.dto.InscripcionResumenDTO;
-import com.formativa.cloud.service.InscripcionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.duoc.cloud.dto.InscripcionRequestDTO;
+import com.duoc.cloud.dto.InscripcionResumenDTO;
+import com.duoc.cloud.service.InscripcionService;
 
 @RestController
 @RequestMapping("/api/inscripciones")

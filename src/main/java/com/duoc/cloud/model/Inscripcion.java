@@ -1,4 +1,4 @@
-package com.formativa.cloud.model;
+package com.duoc.cloud.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

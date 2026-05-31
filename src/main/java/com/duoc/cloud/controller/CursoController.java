@@ -1,11 +1,12 @@
-package com.formativa.cloud.controller;
+package com.duoc.cloud.controller;
 
-import com.formativa.cloud.model.Curso;
-import com.formativa.cloud.service.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.duoc.cloud.model.Curso;
+import com.duoc.cloud.service.CursoService;
 
 import java.util.List;
 

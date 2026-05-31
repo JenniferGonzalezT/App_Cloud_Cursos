@@ -1,15 +1,16 @@
-package com.formativa.cloud.service;
+package com.duoc.cloud.service;
 
-import com.formativa.cloud.dto.CursoResumenDTO;
-import com.formativa.cloud.dto.InscripcionRequestDTO;
-import com.formativa.cloud.dto.InscripcionResumenDTO;
-import com.formativa.cloud.model.Curso;
-import com.formativa.cloud.model.Estudiante;
-import com.formativa.cloud.model.Inscripcion;
-import com.formativa.cloud.repository.EstudianteRepository;
-import com.formativa.cloud.repository.InscripcionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.duoc.cloud.dto.CursoResumenDTO;
+import com.duoc.cloud.dto.InscripcionRequestDTO;
+import com.duoc.cloud.dto.InscripcionResumenDTO;
+import com.duoc.cloud.model.Curso;
+import com.duoc.cloud.model.Estudiante;
+import com.duoc.cloud.model.Inscripcion;
+import com.duoc.cloud.repository.EstudianteRepository;
+import com.duoc.cloud.repository.InscripcionRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
