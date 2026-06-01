@@ -24,6 +24,10 @@ public class CursoService {
         return cursoRepository.save(curso);
     }
 
+    public void eliminarCurso(Long id) {
+        cursoRepository.deleteById(id);
+    }
+
     // busca cursos por sus ids, lanza excepcion si alguno no existe
     public List<Curso> buscarPorIds(List<Long> ids) {
         List<Curso> cursos = cursoRepository.findAllById(ids);

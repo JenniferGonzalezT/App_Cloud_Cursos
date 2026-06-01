@@ -34,4 +34,11 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
+    // DELETE /api/cursos/id - agrega un nuevo curso
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> eliminarCurso(@PathVariable Long id) {
+        cursoService.eliminarCurso(id);
+        return ResponseEntity.ok("Curso " + id + " eliminado.");
+    }
+
 }
