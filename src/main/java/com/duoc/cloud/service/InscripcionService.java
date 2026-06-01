@@ -71,6 +71,45 @@ public class InscripcionService {
         return resumen;
     }
 
+    @Transactional
+    public InscripcionResumenDTO actualizarInscripcionEnBD(Long id, InscripcionRequestDTO request) {
+        // 1. Buscamos la inscripción que ya existe en la BD usando el ID de la URL
+        Inscripcion inscripcionExistente = inscripcionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inscripción no encontrada con id: " + id));
+
+        // 2. Buscamos al nuevo estudiante y los nuevos cursos en caso de que hayan cambiado
+        Estudiante estudiante = estudianteRepository.findById(request.getEstudianteId())
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con id: " + request.getEstudianteId()));
+        List<Curso> cursos = cursoService.buscarPorIds(request.getCursoIds());
+
+        // 3. Calculamos el nuevo total
+        BigDecimal nuevoTotal = cursos.stream()
+                .map(Curso::getCosto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // 4. Actualizamos el objeto existente con los nuevos datos (esto modifica la BD)
+        inscripcionExistente.setEstudiante(estudiante);
+        inscripcionExistente.setCursos(cursos);
+        inscripcionExistente.setTotalPagar(nuevoTotal);
+        
+        // Guardamos los cambios en la base de datos
+        Inscripcion guardada = inscripcionRepository.save(inscripcionExistente);
+
+        // 5. Armamos el DTO de respuesta con los datos frescos para que S3 los pueda escribir
+        List<CursoResumenDTO> cursosResumen = cursos.stream()
+                .map(c -> new CursoResumenDTO(c.getNombre(), c.getCosto()))
+                .toList();
+
+        InscripcionResumenDTO resumen = new InscripcionResumenDTO();
+        resumen.setInscripcionId(guardada.getId());
+        resumen.setNombreEstudiante(estudiante.getNombre());
+        resumen.setFecha(guardada.getFecha());
+        resumen.setCursos(cursosResumen);
+        resumen.setTotalPagar(nuevoTotal);
+
+        return resumen;
+    }
+
     // Método auxiliar para transformar el DTO de resumen a una Cadena legible (Formato Físico)
     public String generarTextoResumen(InscripcionResumenDTO resumen) {
         StringBuilder sb = new StringBuilder();
@@ -98,6 +137,15 @@ public class InscripcionService {
         String fileName = "resumen_" + inscripcionId + ".txt";
         
         return s3Repository.descargarArchivo(folderName, fileName);
+    }
+
+    // Lógica para Modificar en S3
+    public void modificarResumenEnS3(Long id, InscripcionResumenDTO nuevoResumen) {
+        String folderName = String.valueOf(id);
+        String fileName = "resumen_" + id + ".txt";
+        String fileContent = generarTextoResumen(nuevoResumen);
+
+        s3Repository.subirArchivo(folderName, fileName, fileContent.getBytes());
     }
 
     // Lógica para Borrar de S3
