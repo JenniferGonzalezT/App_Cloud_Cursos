@@ -91,19 +91,25 @@ jobs:
             # 3. Limpieza preventiva: Si hay un contenedor corriendo con el mismo nombre, lo detiene y elimina
             docker stop my-app || true && docker rm my-app || true
             
-            # 4. Lanzamiento del Contenedor (Docker Run) con amarre integral a la Base de Datos:
-            #    -p 8080:8080               -> Expone el puerto de la aplicación.
-            #    -e DB_TNS_NAME             -> El alias de la BD de los secretos (ej: bdcloud_high).
-            #    -e DB_USERNAME             -> Usuario administrador (ej: ADMIN).
-            #    -e DB_PASSWORD             -> Contraseña de Oracle Cloud.
-            #    -e WALLET_PATH=/app/wallet -> Le dice a Spring Boot dónde leer el Wallet ADENTRO del contenedor.
+            # 4. Lanzamiento del Contenedor (Docker Run) con amarre integral a la Base de Datos y AWS S3:
+            #    -p 8080:8080                      -> Expone el puerto de la aplicación.
+            #    -e DB_TNS_NAME                    -> El alias de la BD de los secretos (ej: bdcloud_high).
+            #    -e DB_USERNAME                    -> Usuario administrador (ej: ADMIN).
+            #    -e DB_PASSWORD                    -> Contraseña de Oracle Cloud.
+            #    -e WALLET_PATH=/app/wallet        -> Le dice a Spring Boot dónde leer el Wallet ADENTRO del contenedor.
             #    -v /opt/oracle/wallet:/app/wallet -> MAPEADO CLAVE: Vincula la carpeta física de la EC2 con el contenedor.
+            #    -e AWS_ACCESS_KEY_ID              -> Pasa la llave de acceso de AWS Academy a la aplicación.
+            #    -e AWS_SECRET_ACCESS_KEY          -> Pasa la llave secreta de AWS Academy a la aplicación.
+            #    -e AWS_SESSION_TOKEN              -> Pasa el token de sesión dinámico requerido por entornos académicos.
             docker run -d --name my-app \
               -p 8080:8080 \
               -e DB_TNS_NAME=${{ secrets.DB_TNS_NAME }} \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e WALLET_PATH=/app/wallet \
+              -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+              -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+              -e AWS_SESSION_TOKEN="${{ secrets.AWS_SESSION_TOKEN }}" \
               -v /opt/oracle/wallet:/app/wallet \
               ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
           EOF
